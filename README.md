@@ -2,7 +2,7 @@
 Transform your objects to desired rich ones using declarative rules.
 
 ```javascript
-const transform = require('./lib/transform').transform;
+const transform = require('transformobject').transform;
 
 const obj = {
   secret: 'Secret Data',
