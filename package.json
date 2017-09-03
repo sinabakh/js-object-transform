@@ -1,0 +1,39 @@
+{
+  "name": "object-transform",
+  "version": "0.1.0",
+  "description": "Transform your objects to desired rich ones using declarative rules.",
+  "main": "lib/transform.js",
+  "scripts": {
+    "build": "node_modules/babel-cli/bin/babel.js ./src/ -d lib/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sinabakh/js-object-transform"
+  },
+  "keywords": [
+    "transform",
+    "transformation",
+    "serializer",
+    "serialization",
+    "response",
+    "response build",
+    "nodejs",
+    "js"
+  ],
+  "author": "Sina Bakhtiari <sinabakh44@gmail.com>",
+  "license": "Beerware",
+  "bugs": {
+    "url": "https://github.com/sinabakh/js-object-transform/issues"
+  },
+  "homepage": "https://github.com/sinabakh/js-object-transform",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^4.6.0",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "dependencies": {
+  }
+}
