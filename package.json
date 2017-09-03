@@ -1,5 +1,5 @@
 {
-  "name": "object-transform",
+  "name": "transformobject",
   "version": "0.1.0",
   "description": "Transform your objects to desired rich ones using declarative rules.",
   "main": "lib/transform.js",
