@@ -7,7 +7,9 @@ function subTransform(object, transformer, { strict }) {
       if (!res) {
         res = object;
         transformer[property].split('.').forEach((nElement) => {
-          res = res[nElement];
+          if (res) {
+            res = res[nElement];
+          }
         });
         if (strict && res === undefined) {
           res = null;

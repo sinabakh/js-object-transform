@@ -29,7 +29,8 @@ const transformer = {
     return originObject.date.getDate();
   },
   nullField: 'nullField',
-  undefinedField: 'unknownField',  
+  undefinedField: 'unknownField',
+  nonExistingNested: 'nested.username.verification.isVerified',  
 };
 
 
@@ -43,13 +44,14 @@ const transformed = transform(obj, transformer);
 //   booleanField: true,
 //   day: 3,
 //   nullField: null,
-//   undefinedField: undefined}
+//   undefinedField: undefined,
+//   nonExistingNested: undefined}
 
 
 // Using strict option, transformer changes
 // undefined fields to null fields, so they
 // will not be omitted when stringified
-const transformed = transform(obj, transformer);
+const transformed = transform(obj, transformer, { strict: true });
 
 // { username: 'John Doe',
 //   nestedUsername: 'Nested John Doe',
@@ -59,6 +61,7 @@ const transformed = transform(obj, transformer);
 //   booleanField: true,
 //   day: 3,
 //   nullField: null,
-//   undefinedField: null}
+//   undefinedField: null,
+//   nonExistingNested: null}
 
 ```
