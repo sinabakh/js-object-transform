@@ -23,6 +23,7 @@ const transformer = {
     number: 'phoneNumber',
   },
   constantNumber: 4,
+  booleanField: true,
   day: function (originObject) {
     return originObject.date.getDate();
   },
@@ -36,6 +37,7 @@ const transformed = transform(obj, transformer);
 //   flatUsername: 'Flat John Doe',
 //   phone: { number: '+989191331313' },
 //   constantNumber: 4,
+//   booleanField: true,
 //   day: 3 }
 
 ```

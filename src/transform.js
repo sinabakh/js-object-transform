@@ -15,6 +15,8 @@ function subTransform(object, transformer) {
       subObject[property] = subTransform(object, transformer[property]);
     } else if (transformer[property].constructor === Function) {
       subObject[property] = transformer[property](object);
+    } else if (transformer[property].constructor === Boolean) {
+      subObject[property] = transformer[property];
     } else if (transformer[property].constructor === Number) {
       subObject[property] = transformer[property];
     }
