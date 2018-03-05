@@ -13,6 +13,7 @@ const obj = {
   'flat.nested.username': 'Flat John Doe',
   phoneNumber: '+989191331313',
   date: new Date(),
+  nullField: null,
 };
 
 const transformer = {
@@ -27,6 +28,8 @@ const transformer = {
   day: function (originObject) {
     return originObject.date.getDate();
   },
+  nullField: 'nullField',
+  undefinedField: 'unknownField',  
 };
 
 
@@ -38,6 +41,24 @@ const transformed = transform(obj, transformer);
 //   phone: { number: '+989191331313' },
 //   constantNumber: 4,
 //   booleanField: true,
-//   day: 3 }
+//   day: 3,
+//   nullField: null,
+//   undefinedField: undefined}
+
+
+// Using strict option, transformer changes
+// undefined fields to null fields, so they
+// will not be omitted when stringified
+const transformed = transform(obj, transformer);
+
+// { username: 'John Doe',
+//   nestedUsername: 'Nested John Doe',
+//   flatUsername: 'Flat John Doe',
+//   phone: { number: '+989191331313' },
+//   constantNumber: 4,
+//   booleanField: true,
+//   day: 3,
+//   nullField: null,
+//   undefinedField: null}
 
 ```
