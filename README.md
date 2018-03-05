@@ -22,6 +22,7 @@ const transformer = {
   phone: {
     number: 'phoneNumber',
   },
+  constantNumber: 4,
   day: function (originObject) {
     return originObject.date.getDate();
   },
@@ -34,6 +35,7 @@ const transformed = transform(obj, transformer);
 //   nestedUsername: 'Nested John Doe',
 //   flatUsername: 'Flat John Doe',
 //   phone: { number: '+989191331313' },
-//  day: 3 }
+//   constantNumber: 4,
+//   day: 3 }
 
 ```
