@@ -3,7 +3,7 @@ function subTransform(object, transformer, { strict }) {
   const properties = Object.keys(transformer);
   properties.forEach((property) => {
     if (transformer[property].constructor === String) {
-      let res = object[transformer[property]];
+      let res = object ? object[transformer[property]] : undefined;
       if (!res) {
         res = object;
         transformer[property].split('.').forEach((nElement) => {
