@@ -1,5 +1,5 @@
-function subTransform(object, transformer, { strict }) {
-  const subObject = {};
+function subTransform(object, transformer, { strict, source }) {
+  const subObject = source || {};
   const properties = Object.keys(transformer);
   properties.forEach((property) => {
     if (transformer[property].constructor === String) {
@@ -32,11 +32,7 @@ function subTransform(object, transformer, { strict }) {
   return subObject;
 }
 
-exports.transform = function transform(object, transformer, options) {
-  let strict = false;
-  if (options && options.strict) {
-    strict = true;
-  }
-  const transformed = subTransform(object, transformer, { strict });
-  return transformed;
+exports.transform = function transform(object, transformer, options = {}) {
+  const { strict = false, source = undefined } = options;
+  return subTransform(object, transformer, { strict, source });
 };

@@ -48,9 +48,17 @@ const transformed = transform(obj, transformer);
 //   nonExistingNested: undefined}
 
 
-// Using strict option, transformer changes
-// undefined fields to null fields, so they
-// will not be omitted when stringified
+
+
+```
+
+
+## Options
+Using strict option, transformer changes `undefined` fields to `null` fields, so they
+will not be omitted when stringified
+
+### strict
+```javascript
 const transformed = transform(obj, transformer, { strict: true });
 
 // { username: 'John Doe',
@@ -63,5 +71,25 @@ const transformed = transform(obj, transformer, { strict: true });
 //   nullField: null,
 //   undefinedField: null,
 //   nonExistingNested: null}
+```
 
+### source
+Providing a source object will write the transformed values into the source instead of  creating a new object
+```javascript
+const transformed = transform(obj, transformer, { source: { a: 1, b: 2, house: { name: 'Brambles'} } });
+
+// { 
+//   a: 1,
+//   b: 2,
+//   house: { name: 'Brambles' },
+//   username: 'John Doe',
+//   nestedUsername: 'Nested John Doe',
+//   flatUsername: 'Flat John Doe',
+//   phone: { number: '+989191331313' },
+//   constantNumber: 4,
+//   booleanField: true,
+//   day: 3,
+//   nullField: null,
+//   undefinedField: null,
+//   nonExistingNested: null}
 ```
