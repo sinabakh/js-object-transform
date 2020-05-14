@@ -37,7 +37,10 @@
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
     "jest": "^26.0.1",
-    "prettier": "^2.0.5"
+    "lodash.camelcase": "^4.3.0",
+    "lodash.snakecase": "^4.1.1",
+    "prettier": "^2.0.5",
+    "ucwords": "^1.0.5"
   },
   "dependencies": {}
 }

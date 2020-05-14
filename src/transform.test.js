@@ -1,4 +1,20 @@
 import { transform } from './transform';
+import ucWords from 'ucwords';
+import camelCase from 'lodash.camelcase';
+import snakeCase from 'lodash.snakecase';
+
+const now = new Date();
+const obj = {
+  secret: 'Secret Data',
+  username: 'John Doe',
+  nested: {
+    username: 'Nested John Doe',
+  },
+  'flat.nested.username': 'Flat John Doe',
+  phoneNumber: '+989191331313',
+  date: now,
+  nullField: null,
+};
 
 describe('Transform', () => {
   describe('Inputs', () => {
@@ -49,18 +65,6 @@ describe('Transform', () => {
 
   // Test existing functionality before adding actions
   describe('Existing access', () => {
-    const now = new Date();
-    const obj = {
-      secret: 'Secret Data',
-      username: 'John Doe',
-      nested: {
-        username: 'Nested John Doe',
-      },
-      'flat.nested.username': 'Flat John Doe',
-      phoneNumber: '+989191331313',
-      date: now,
-      nullField: null,
-    };
     it('String lookup', () => {
       const transformer = { username: 'username' };
       const transformed = transform(obj, transformer);
@@ -115,6 +119,33 @@ describe('Transform', () => {
       const transformer = { nonExistingNested: 'nested.username.verification.isVerified' };
       const transformed = transform(obj, transformer);
       expect(transformed.undefinedField).toBeUndefined();
+    });
+  });
+
+  describe('Actions', () => {
+    it('It transforms a single action', () => {
+      const transformer = { username: ['username', 'camelCase'] };
+      const options = { actions: { camelCase } };
+      const transformed = transform(obj, transformer, options);
+      expect(transformed.username).toEqual(camelCase(obj.username));
+    });
+    it('It transforms multiple actions - in correct order', () => {
+      const transformer = { username: ['username', 'camelCase', 'snakeCase'] };
+      const options = { actions: { camelCase, snakeCase } };
+      const transformed = transform(obj, transformer, options);
+      expect(transformed.username).toEqual(snakeCase(camelCase(obj.username)));
+    });
+    it('It handles missing actions', () => {
+      const transformer = { username: ['username', 'camelCase', 'snakeCase'] };
+      const options = { actions: { snakeCase } };
+      const transformed = transform(obj, transformer, options);
+      expect(transformed.username).toEqual(snakeCase(obj.username));
+    });
+    it('It handles empty actions', () => {
+      const transformer = { username: ['username', 'ucWords', ''] };
+      const options = { actions: { ucWords } };
+      const transformed = transform(obj, transformer, options);
+      expect(transformed.username).toEqual(ucWords(obj.username));
     });
   });
 });
