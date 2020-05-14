@@ -28,7 +28,7 @@ function subTransform(object, transformer, { strict, source, actions }) {
       }
       subObject[property] = res;
     } else if (transformerProperty.constructor === Object) {
-      subObject[property] = subTransform(object, transformerProperty, { strict, actions });
+      subObject[property] = subTransform(object, transformerProperty, { source: subObject[property], strict, actions });
     } else if (transformerProperty.constructor === Function) {
       subObject[property] = transformerProperty(object);
       if (strict && subObject[property] === undefined) {
