@@ -105,7 +105,7 @@ The first field is the lookup, same as before, all additional fields are execute
 Example
 ```javascript
 const ucwords = require('ucwords'); // example npm install
-const camelCase = require('lodash.camcelcase'); // example npm install
+const camelCase = require('lodash.camelcase'); // example npm install
 
 const obj = {
   username: 'John Doe',
