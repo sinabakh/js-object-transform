@@ -46,4 +46,75 @@ describe('Transform', () => {
       });
     });
   });
+
+  // Test existing functionality before adding actions
+  describe('Existing access', () => {
+    const now = new Date();
+    const obj = {
+      secret: 'Secret Data',
+      username: 'John Doe',
+      nested: {
+        username: 'Nested John Doe',
+      },
+      'flat.nested.username': 'Flat John Doe',
+      phoneNumber: '+989191331313',
+      date: now,
+      nullField: null,
+    };
+    it('String lookup', () => {
+      const transformer = { username: 'username' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.username).toEqual(obj.username);
+    });
+    it('Nested string lookup', () => {
+      const transformer = { nestedUsername: 'nested.username' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.nestedUsername).toEqual(obj.nested.username);
+    });
+    it('Flat string lookup', () => {
+      const transformer = { flatUsername: 'flat.nested.username' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.flatUsername).toEqual(obj['flat.nested.username']);
+    });
+    it('Lookup while nested', () => {
+      const transformer = { phone: { number: 'phoneNumber' } };
+      const transformed = transform(obj, transformer);
+      expect(transformed.phone.number).toEqual(obj.phoneNumber);
+    });
+    it('Constant number', () => {
+      const transformer = { constantNumber: 4 };
+      const transformed = transform(obj, transformer);
+      expect(transformed.constantNumber).toEqual(4);
+    });
+    it('Constant boolean', () => {
+      const transformer = { booleanField: true };
+      const transformed = transform(obj, transformer);
+      expect(transformed.booleanField).toEqual(true);
+    });
+    it('Constant boolean', () => {
+      const transformer = { booleanField: false };
+      const transformed = transform(obj, transformer);
+      expect(transformed.booleanField).toEqual(false);
+    });
+    it('Executes function', () => {
+      const transformer = { day: (originObject) => originObject.date.getDate() };
+      const transformed = transform(obj, transformer);
+      expect(transformed.day).toEqual(now.getDate());
+    });
+    it('Null field', () => {
+      const transformer = { nullField: 'nullField' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.nullField).toEqual(obj.nullField);
+    });
+    it('Undefined field', () => {
+      const transformer = { undefinedField: 'unknownField' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.undefinedField).toBeUndefined();
+    });
+    it('Non existing nested field', () => {
+      const transformer = { nonExistingNested: 'nested.username.verification.isVerified' };
+      const transformed = transform(obj, transformer);
+      expect(transformed.undefinedField).toBeUndefined();
+    });
+  });
 });

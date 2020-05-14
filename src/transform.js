@@ -33,6 +33,6 @@ function subTransform(object, transformer, { strict, source }) {
 }
 
 exports.transform = function transform(object, transformer, options = {}) {
-  const { strict = false, source = undefined } = options;
-  return subTransform(object, transformer, { strict, source });
+  const { strict = false, source = undefined, actions = {} } = options;
+  return subTransform(object, transformer, { strict, source, actions });
 };
