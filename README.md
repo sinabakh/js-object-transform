@@ -93,3 +93,43 @@ const transformed = transform(obj, transformer, { source: { a: 1, b: 2, house: {
 //   undefinedField: null,
 //   nonExistingNested: null}
 ```
+
+### actions
+Providing an `actions` object will allow the actions to be reused across transforms, this provides the ability to process  fields using an array syntax to share functionality.
+
+The array syntax works as follows:
+
+The first field is the lookup, same as before, all additional fields are executed in order passing the result along the chain.
+`['username', 'undefinedIfEmptyString']`
+
+Example
+```javascript
+const ucwords = require('ucwords'); // example npm install
+const camelCase = require('lodash.camelcase'); // example npm install
+
+const obj = {
+  username: 'John Doe',
+  nested: {
+    username: 'Nested John Doe',
+  },
+};
+
+const transformer = {
+  username: ['username', 'camelCase', 'undefinedIfEmptyString'],
+  nestedUsername: ['nested.username', 'ucwords', 'undefinedIfEmptyString'],
+};
+
+const transformed = transform(
+  obj, 
+  transformer, 
+  {
+    actions: {
+      camelCase: value => camelCase(value),
+      ucwords: value => ucwords(value),
+      undefinedIfEmptyString: value => value === "" ? undefined : value,
+    } 
+  }
+);
+```
+
+Actions can be combined with both `strict` and `source`. If an action is not defined but is used, a console warning will be logged. 
